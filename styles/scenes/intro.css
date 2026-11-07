@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Act 1 — the book. Phases on <html data-intro="closed|opening|open|closing">.
+   ========================================================================== */
+html[data-scene="intro"] .scene--intro { display: grid; }
+
+.scene--intro {
+  grid-template-rows: auto auto;
+  align-content: start;
+  justify-items: center;
+  gap: clamp(28px, 5vh, 56px);
+  min-height: calc(100svh - var(--masthead-h));
+  padding: clamp(40px, 9vh, 104px) 16px 48px;
+}
+
+.stage {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  perspective: 1800px;
+  perspective-origin: 50% 10%;
+}
+
+.book {
+  --turn: 0deg;
+  --shift: calc(var(--page-w) * -0.5);
+  --shadow-x: 75%;
+  --shadow-w: 56%;
+  position: relative;
+  width: calc(var(--page-w) * 2);
+  height: var(--page-h);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt)) translateX(var(--shift));
+  transition: transform var(--t-open) var(--ease-book);
+}
+
+.book__shadow {
+  position: absolute;
+  left: var(--shadow-x);
+  bottom: calc(var(--page-h) * -0.07);
+  width: var(--shadow-w);
+  height: 18%;
+  transform: translateX(-50%) translateZ(-2px);
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  filter: blur(6px);
+  transition: width var(--t-open) var(--ease-book), left var(--t-open) var(--ease-book);
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  width: var(--page-w);
+  height: var(--page-h);
+  background-color: var(--paper);
+  color: var(--text-on-paper);
+}
+.page--right {
+  left: var(--page-w);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  background-image: linear-gradient(to right, rgba(60, 45, 20, 0.2), rgba(60, 45, 20, 0) 16%);
+  box-shadow:
+    1px 1px 0 var(--paper-shade), 2px 2px 0 var(--paper-edge), 3px 3px 0 var(--paper-shade),
+    4px 4px 0 var(--paper-edge), 5px 5px 0 var(--paper-edge-deep), 10px 14px 24px rgba(0, 0, 0, 0.45);
+}
+.page--left {
+  border-radius: var(--radius-xs) 0 0 var(--radius-xs);
+  background-image: linear-gradient(to left, rgba(60, 45, 20, 0.2), rgba(60, 45, 20, 0) 16%);
+  box-shadow:
+    -1px 1px 0 var(--paper-shade), -2px 2px 0 var(--paper-edge), -3px 3px 0 var(--paper-shade),
+    -4px 4px 0 var(--paper-edge), -5px 5px 0 var(--paper-edge-deep), -10px 14px 24px rgba(0, 0, 0, 0.45);
+}
+.page__running,
+.page__folio {
+  position: absolute;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-on-paper);
+  opacity: 0.8;
+}
+.page__running { top: 7%; }
+.page__folio { bottom: 6%; font-family: var(--serif); font-size: 12px; letter-spacing: 0.05em; }
+.page--right .page__running, .page--right .page__folio { right: 12%; }
+.page--left .page__running, .page--left .page__folio { left: 12%; }
+
+/* Cover — hinged on the spine */
+.cover {
+  position: absolute;
+  top: 0;
+  left: var(--page-w);
+  width: var(--page-w);
+  height: var(--page-h);
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform: translateZ(1px) rotateY(var(--turn));
+  transition: transform var(--t-open) var(--ease-book);
+}
+.cover__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.cover__front {
+  background:
+    linear-gradient(to right, var(--cover-spine) 0, var(--cover-spine) 4%, rgba(255, 255, 255, 0.05) 4.6%, transparent 7%),
+    linear-gradient(160deg, #161614 0%, var(--cover) 55%, #070707 100%);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  box-shadow: inset 0 0 0 1px rgba(181, 154, 112, 0.08);
+  padding: 9% 9% 9% 13%;
+}
+.cover__frame {
+  position: relative;
+  height: 100%;
+  border: 1px solid var(--gold-soft);
+  outline: 1px solid var(--gold-faint);
+  outline-offset: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 0 8%;
+}
+.cover__eyebrow,
+.cover__imprint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.cover__eyebrow { top: 9%; }
+.cover__imprint { bottom: 9%; }
+.cover__title {
+  font-family: var(--serif);
+  font-size: calc(var(--page-w) * 0.072);
+  line-height: 1.5;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-left: 0.34em;
+}
+.cover__rule { width: 28px; height: 1px; background: var(--gold); opacity: 0.7; }
+.cover__subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: calc(var(--page-w) * 0.045);
+  color: var(--gold);
+  opacity: 0.85;
+}
+.cover__back { transform: rotateY(180deg); }
+
+.book__gutter {
+  position: absolute;
+  top: 0;
+  left: calc(var(--page-w) - 22px);
+  width: 44px;
+  height: var(--page-h);
+  transform: translateZ(2px);
+  background: linear-gradient(to right,
+    rgba(40, 28, 10, 0) 0%, rgba(40, 28, 10, 0.14) 40%, rgba(20, 14, 4, 0.32) 50%,
+    rgba(40, 28, 10, 0.14) 60%, rgba(40, 28, 10, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.spread-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(3px);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: calc(var(--page-w) * 0.118);
+  line-height: 1.12;
+  color: var(--text-on-paper);
+  text-align: center;
+  pointer-events: none;
+}
+.spread-text__line {
+  display: block;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.spread-text__line:nth-child(2) { font-style: italic; }
+
+.cta {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+/* ── opening: static mid-turn ── */
+html[data-intro="opening"] .book {
+  --turn: -62deg;
+  --shift: calc(var(--page-w) * -0.25);
+  --shadow-x: 62%;
+  --shadow-w: 80%;
+}
+html[data-intro="opening"] .book__gutter { opacity: 0.4; }
+
+/* ── open ── */
+html[data-intro="open"] .book { --turn: -180deg; --shift: 0px; --shadow-x: 50%; --shadow-w: 104%; }
+html[data-intro="open"] .book__gutter { opacity: 1; transition-delay: 1.6s; transition-duration: 1s; }
+html[data-intro="open"] .spread-text__line {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+html[data-intro="open"] .spread-text__line:nth-child(1) { transition-delay: 2.4s; }
+html[data-intro="open"] .spread-text__line:nth-child(2) { transition-delay: 2.8s; }
+html[data-intro="open"] .spread-text__line:nth-child(3) { transition-delay: 3.2s; }
+html[data-intro="open"] .cta {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 1.2s ease 4s, transform 1.2s ease 4s, visibility 0s linear 4s;
+}
+
+/* ── closing: the book shuts before Act 2 ── */
+html[data-intro="closing"] .book,
+html[data-intro="closing"] .cover,
+html[data-intro="closing"] .book__shadow {
+  transition-duration: var(--t-close);
+  transition-delay: 0.45s;
+}
+
+@media (max-width: 640px) {
+  .scene--intro { padding-top: clamp(48px, 10vh, 88px); }
+  .cover__eyebrow, .cover__imprint { font-size: 7px; letter-spacing: 0.26em; }
+  .cover__subtitle { display: none; }
+  .page__running { font-size: 7px; }
+  .cta .lede { max-width: 26ch; }
+}

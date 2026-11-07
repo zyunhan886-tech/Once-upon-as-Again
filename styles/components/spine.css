@@ -1,0 +1,63 @@
+/* Book spine on the Act 2 bookcase. */
+.spine-slot { display: flex; align-items: flex-end; height: 100%; }
+
+.spine {
+  --lift: 0px;
+  position: relative;
+  z-index: 1; /* above the cell's stretched shelf link */
+  display: block;
+  width: var(--sw, 30px);
+  height: var(--sh, 80%);
+  padding: 12px 0;
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.09), transparent 30%, rgba(0, 0, 0, 0.25)),
+    var(--c-bg);
+  color: var(--c-ink);
+  border-radius: var(--radius-xs) var(--radius-xs) 1px 1px;
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  overflow: hidden;
+  transform-origin: bottom right;
+  transform: translateY(var(--lift)) rotate(var(--lean, 0deg));
+  transition: transform 0.35s var(--ease-book);
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.4);
+}
+.spine__title {
+  display: block;
+  max-height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spine::before,
+.spine::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  height: 1px;
+  background: var(--c-acc);
+  opacity: 0.7;
+}
+.spine::before { top: 6px; }
+.spine::after { bottom: 6px; }
+.spine:hover,
+.spine:focus-visible { --lift: -10px; }
+
+/* Reading → gold bookmark ribbon; finished → small gilt foot. */
+.spine.is-reading { overflow: visible; }
+.spine.is-reading .spine__title { padding-bottom: 2px; }
+.spine.is-reading::before {
+  top: -1px;
+  left: auto;
+  right: 26%;
+  width: 3px;
+  height: 14px;
+  background: var(--gold);
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+}
+.spine.is-finished { box-shadow: 1px 0 0 rgba(0, 0, 0, 0.4), inset 0 -3px 0 var(--gold); }

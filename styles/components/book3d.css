@@ -1,0 +1,91 @@
+/* Standing 3D book on the genre rack (src/components/book3d.js). */
+.book3d {
+  --lift: 0px;
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-style: preserve-3d;
+  transform: translateY(var(--lift)) rotateY(var(--book-turn, -68deg));
+  transition: transform 0.55s var(--ease-book);
+  text-decoration: none;
+  color: inherit;
+}
+.book3d:hover,
+.book3d:focus-visible { --lift: -22px; outline: none; }
+.book3d:focus-visible .book3d__front { outline: 1px solid var(--gold); outline-offset: 6px; }
+
+.book3d__face { position: absolute; display: block; }
+
+.book3d__front {
+  inset: 0;
+  transform: translateZ(calc(var(--bd) / 2));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.book3d__back {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(calc(var(--bd) / 2));
+  background: var(--c-bg);
+  filter: brightness(0.7);
+}
+/* gilded fore-edge (right side) */
+.book3d__edge {
+  top: 2px;
+  bottom: 2px;
+  width: var(--bd);
+  left: calc(var(--bw) - var(--bd) / 2);
+  transform: rotateY(90deg);
+  background:
+    repeating-linear-gradient(90deg, rgba(60, 40, 10, 0.22) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, var(--gilt-hi), var(--gilt-lo));
+}
+.book3d__top {
+  left: 0;
+  width: calc(var(--bw) - 2px);
+  height: var(--bd);
+  top: calc(var(--bd) / -2);
+  transform: rotateX(90deg);
+  background:
+    repeating-linear-gradient(0deg, rgba(60, 40, 10, 0.2) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, var(--gilt-lo), var(--gilt-hi));
+}
+.book3d__spine {
+  top: 0;
+  bottom: 0;
+  width: var(--bd);
+  left: calc(var(--bd) / -2);
+  transform: rotateY(-90deg);
+  background: var(--c-bg);
+  filter: brightness(0.8);
+}
+
+/* Reading progress along the foot of the cover; "Finished" tag at the top. */
+.book3d__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.35);
+}
+.book3d__progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform: scaleX(var(--p));
+  background: var(--gold);
+}
+.book3d__badge {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  padding: 10px 6px 12px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 92%, 0 100%);
+}

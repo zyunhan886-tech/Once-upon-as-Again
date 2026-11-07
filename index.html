@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" data-scene="intro" data-intro="closed">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MendReading</title>
+  <meta name="description" content="MendReading helps you return to reading, one page at a time.">
+  <meta name="theme-color" content="#111110">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='2' width='10' height='12' rx='1' fill='%23111110' stroke='%23B59A70'/%3E%3C/svg%3E">
+  <script>
+    /* Pick the scene before first paint: no intro flash on deep links, no motion on capture links. */
+    (function () {
+      var d = document.documentElement;
+      var s = new URLSearchParams(location.search).get("state");
+      var capture = { closed: "intro", opening: "intro", open: "intro", bookshelf: "library", shelf: "shelf", reader: "reader" };
+      if (capture[s]) {
+        d.dataset.scene = capture[s];
+        if (capture[s] === "intro") d.dataset.intro = s;
+        d.classList.add("is-static");
+        return;
+      }
+      var h = location.hash.slice(1);
+      d.dataset.scene = /^\/library/.test(h) ? "library" : /^\/shelf\//.test(h) ? "shelf" : /^\/book\//.test(h) ? "reader" : "intro";
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <a class="masthead__mark" href="#/library" aria-label="MendReading library">
+      <span class="masthead__dot" aria-hidden="true"></span>MendReading
+    </a>
+    <p class="masthead__meta">A reading companion <span aria-hidden="true">—</span> No. 01</p>
+    <nav class="masthead__nav" aria-label="Primary">
+      <a class="masthead__link" href="#/library">Library</a>
+      <button class="masthead__link" type="button" data-action="replay">Replay intro</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ═════════ Act 1 · The book opens ═════════ -->
+    <section class="scene scene--intro" data-scene-root="intro" aria-labelledby="intro-title">
+      <div class="stage">
+        <div class="book">
+          <div class="book__shadow" aria-hidden="true"></div>
+
+          <div class="page page--right" aria-hidden="true">
+            <span class="page__running">Chapter One</span>
+            <span class="page__folio">3</span>
+          </div>
+
+          <div class="cover">
+            <div class="cover__face cover__front">
+              <div class="cover__frame">
+                <span class="cover__eyebrow">Vol. I</span>
+                <span class="cover__title">Mend<br>Reading</span>
+                <span class="cover__rule" aria-hidden="true"></span>
+                <span class="cover__subtitle">a book for the returning reader</span>
+                <span class="cover__imprint">MMXXVI</span>
+              </div>
+            </div>
+            <div class="cover__face cover__back page page--left" aria-hidden="true">
+              <span class="page__running">MendReading</span>
+              <span class="page__folio">2</span>
+            </div>
+          </div>
+
+          <div class="book__gutter" aria-hidden="true"></div>
+
+          <h1 class="spread-text" id="intro-title">
+            <span class="spread-text__line">Do you remember</span>
+            <span class="spread-text__line">the last time</span>
+            <span class="spread-text__line">you read a book?</span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="cta">
+        <p class="lede">Whenever it was, you can start with one page.</p>
+        <button class="btn" type="button" data-action="enter">Open my bookshelf</button>
+      </div>
+    </section>
+
+    <!-- ═════════ Act 2 · Library hub ═════════ -->
+    <section class="scene scene--library" data-scene-root="library" aria-labelledby="library-title">
+      <div class="library">
+        <div class="library__shelf">
+          <header class="section-head">
+            <p class="eyebrow">01 <span aria-hidden="true">—</span> Shelf</p>
+            <h2 class="section-head__title" id="library-title" tabindex="-1">My Bookshelf</h2>
+            <p class="section-head__note" id="continue-note"></p>
+          </header>
+          <div class="bookcase" id="bookcase"></div>
+        </div>
+
+        <div class="library__discover">
+          <header class="section-head">
+            <p class="eyebrow">02 <span aria-hidden="true">—</span> Notes</p>
+            <h2 class="section-head__title">Discover</h2>
+            <p class="section-head__note">Lines readers have underlined and shared across the web. Open a note to read the book’s first page.</p>
+          </header>
+
+          <div class="discover__toolbar">
+            <label class="select">
+              <span class="select__label">Taste</span>
+              <select id="genre-select">
+                <option value="all">All genres</option>
+              </select>
+            </label>
+            <p class="discover__count" id="notes-count" aria-live="polite"></p>
+          </div>
+
+          <ul class="notes" id="notes"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════ Genre shelf (rendered by src/scenes/shelf.js) ═════════ -->
+    <section class="scene scene--shelf" data-scene-root="shelf" aria-labelledby="shelf-scene-title"></section>
+
+    <!-- ═════════ Reader · page one ═════════ -->
+    <section class="scene scene--reader" data-scene-root="reader" aria-labelledby="reader-title">
+      <div class="reader">
+        <article class="reader__book">
+          <div class="reader__page reader__page--left">
+            <div class="reader__cover" id="reader-cover"></div>
+            <p class="eyebrow eyebrow--paper" id="reader-genre"></p>
+            <h2 class="reader__title" id="reader-title" tabindex="-1"></h2>
+            <p class="reader__author" id="reader-author"></p>
+            <div class="reader__why">
+              <p class="reader__why-label">The line that brought you here</p>
+              <blockquote class="reader__quote" id="reader-quote"></blockquote>
+            </div>
+            <span class="page__folio">i</span>
+          </div>
+          <div class="reader__gutter" aria-hidden="true"></div>
+          <div class="reader__page reader__page--right">
+            <p class="reader__chapter" id="reader-chapter"></p>
+            <div class="reader__text" id="reader-text"></div>
+            <span class="page__folio">1</span>
+          </div>
+        </article>
+
+        <div class="reader__actions">
+          <p class="lede" id="reader-status"></p>
+          <div class="reader__buttons">
+            <button class="btn" type="button" data-action="back">Back</button>
+            <button class="btn btn--quiet" type="button" id="reader-finish" aria-pressed="false">Mark as finished</button>
+          </div>
+          <a class="text-link" id="reader-more" href="#/library"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

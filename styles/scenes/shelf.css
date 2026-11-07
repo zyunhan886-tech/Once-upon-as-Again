@@ -1,0 +1,200 @@
+/* ==========================================================================
+   Genre shelf — giant genre name behind a rack of standing 3D books
+   ========================================================================== */
+.shelf-scene {
+  --title-size: min(14vw, calc(172vw / var(--len)));
+  --bw: clamp(150px, 13.5vw, 206px);   /* book width  */
+  --bh: calc(var(--bw) * 1.48);         /* book height */
+  --bd: calc(var(--bw) * 0.16);         /* book depth  */
+  --step: calc(var(--bw) * 0.52);       /* spacing along the rack */
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px var(--gutter) 96px;
+  overflow: hidden;
+  animation: rise 0.9s var(--ease-book) both;
+}
+
+.shelf-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.shelf-hero {
+  display: grid;
+  justify-items: center;
+  padding-top: clamp(24px, 5vh, 56px);
+}
+.shelf-hero__tagline {
+  order: -1;
+  margin-bottom: clamp(8px, 1.6vh, 16px);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--text-muted);
+  text-align: center;
+}
+.shelf-hero__title {
+  position: relative;
+  z-index: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--title-size);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── The rack ── */
+.rack {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: calc(var(--title-size) * -0.62);
+  height: calc(var(--bh) + 70px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  perspective: 1500px;
+  perspective-origin: 30% -40%;
+  pointer-events: none;
+}
+.rack::after {
+  /* floor shadow */
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: min(900px, 90%);
+  height: 50px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.8), transparent);
+  filter: blur(4px);
+  z-index: -1;
+}
+.rack__track {
+  position: relative;
+  width: calc((var(--n) - 1) * var(--step) + var(--bw));
+  height: var(--bh);
+  transform-style: preserve-3d;
+  transform: translateX(calc(var(--bw) * -0.1)) rotateY(22deg);
+  pointer-events: auto;
+}
+.rack__item {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--i) * var(--step));
+  width: var(--bw);
+  height: var(--bh);
+  transform-style: preserve-3d;
+  animation: stand 0.9s var(--ease-book) both;
+  animation-delay: calc(0.15s + var(--i) * 90ms);
+}
+@keyframes stand {
+  /* transform only: opacity < 1 would flatten the 3D book */
+  from { transform: translateY(60px); }
+  to { transform: none; }
+}
+
+.rack-empty {
+  margin-top: 32px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text-muted);
+}
+
+/* ── Caption follows the hovered book ── */
+.shelf-caption {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-height: 64px;
+  margin-top: 48px;
+  text-align: center;
+}
+.shelf-caption__title { font-family: var(--serif); font-size: 26px; color: var(--paper); line-height: 1.2; }
+.shelf-caption__meta { font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); }
+.shelf-caption__meta em { font-style: normal; color: var(--gold); }
+
+/* ── Genre tabs ── */
+.genre-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 28px auto 0;
+  max-width: 980px;
+}
+.genre-tab {
+  padding: 8px 16px;
+  border: 1px solid var(--gold-faint);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.genre-tab:hover { color: var(--paper); border-color: var(--gold-soft); }
+.genre-tab[aria-current="page"] { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+/* ── Unopened books in this genre ── */
+.waiting {
+  margin-top: clamp(64px, 10vh, 112px);
+  padding-top: 32px;
+  border-top: 1px solid var(--gold-faint);
+}
+.waiting__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.waiting__title { font-family: var(--serif); font-weight: 400; font-size: 32px; color: var(--paper); }
+.waiting__note { color: var(--text-muted); font-size: 14px; }
+.waiting__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 168px));
+  gap: 28px;
+}
+.waiting__book {
+  display: grid;
+  gap: 12px;
+  text-decoration: none;
+}
+.waiting__book .cover-art {
+  aspect-ratio: 2 / 3;
+  height: auto;
+  box-shadow: 0 18px 30px -16px rgba(0, 0, 0, 0.9);
+  transition: transform 0.4s var(--ease-book);
+}
+.waiting__book:hover .cover-art,
+.waiting__book:focus-visible .cover-art { transform: translateY(-8px); }
+.waiting__label { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--gold); }
+
+@media (max-width: 640px) {
+  .shelf-scene {
+    --title-size: 15vw;
+    --bw: 112px;
+    --step: calc(var(--bw) * 0.55);
+  }
+  .shelf-hero__title { white-space: normal; max-width: 9ch; }
+  .rack { margin-top: calc(var(--title-size) * -0.35); perspective: 900px; }
+  .genre-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 4px;
+    scrollbar-width: none;
+  }
+  .waiting__list { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}

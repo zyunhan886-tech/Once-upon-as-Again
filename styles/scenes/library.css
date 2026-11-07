@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Act 2 — library hub: 8-cell bookcase (left) + Discover notes (right)
+   ========================================================================== */
+.library {
+  display: grid;
+  grid-template-columns: minmax(360px, 5fr) 6fr;
+  gap: clamp(40px, 6vw, 96px);
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: clamp(40px, 7vh, 72px) var(--gutter) 96px;
+  animation: rise 0.9s var(--ease-book) both;
+}
+
+.section-head { display: grid; gap: 10px; margin-bottom: 32px; }
+.section-head__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(38px, 4.4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+}
+.section-head__note { max-width: 46ch; color: var(--text-muted); font-size: 14px; }
+
+/* ── Bookcase ── */
+@media (min-width: 901px) {
+  .library__shelf { position: sticky; top: 24px; align-self: start; }
+}
+
+.bookcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--radius-xs);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.015), rgba(0, 0, 0, 0));
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.cell {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: clamp(150px, 19vh, 178px);
+  padding: 12px 16px 0;
+  border-bottom: 1px solid var(--gold-soft);
+  transition: background-color 0.3s ease;
+}
+.cell:nth-child(odd) { border-right: 1px solid var(--gold-soft); }
+.cell:nth-last-child(-n + 2) { border-bottom: 0; }
+.cell::after {
+  /* plank shadow under the books */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent);
+  pointer-events: none;
+}
+.cell:hover { background-color: var(--gold-faint); }
+
+.cell__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cell__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.2;
+}
+/* stretched link: the whole cell opens the genre shelf; spines sit above it */
+.cell__link::after { content: ""; position: absolute; inset: 0; z-index: 0; }
+.cell__link:focus-visible { outline: none; }
+.cell:has(.cell__link:focus-visible) { outline: 1px solid var(--gold); outline-offset: -4px; }
+.cell__no {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+}
+.cell__count {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.cell__books {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 0;
+  position: relative;
+  pointer-events: none; /* gaps fall through to the shelf link… */
+}
+.cell__books .spine { pointer-events: auto; } /* …but spines stay clickable */
+.cell__hint {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.cell:hover .cell__hint,
+.cell:has(.cell__link:focus-visible) .cell__hint { opacity: 1; transform: none; }
+
+/* ── Discover ── */
+.discover__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: -6px 0 34px;
+}
+.discover__count {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+.notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 40px 26px;
+}
+
+@media (max-width: 900px) {
+  .library { grid-template-columns: 1fr; gap: 64px; }
+}
+@media (max-width: 640px) {
+  .cell { padding: 10px 10px 0; height: 150px; }
+  .cell__link { font-size: 15px; }
+  .cell__no { display: none; }
+  .cell__books { gap: 3px; }
+  .cell .spine { width: calc(var(--sw) * 0.82); font-size: 11px; }
+  .notes { grid-template-columns: 1fr; gap: 34px; }
+  .note__quote { font-size: 21px; }
+}

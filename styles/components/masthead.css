@@ -1,0 +1,50 @@
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--masthead-h);
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--gold-faint);
+}
+.masthead__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+}
+.masthead__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.masthead__meta {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.masthead__nav { display: none; gap: 28px; align-items: center; }
+.masthead__link {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  padding: 2px 0;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+.masthead__link:hover { color: var(--paper); border-color: var(--paper); }
+
+/* Act 1 shows the colophon; everything after shows navigation. */
+html:not([data-scene="intro"]) .masthead__meta { display: none; }
+html:not([data-scene="intro"]) .masthead__nav { display: flex; }
+html[data-scene="library"] .masthead__nav a { display: none; }
+html[data-scene="intro"] .masthead__mark { pointer-events: none; }
+
+@media (max-width: 900px) {
+  .masthead__meta { display: none; }
+}
