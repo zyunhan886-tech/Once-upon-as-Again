@@ -6,7 +6,7 @@
  *   #/shelf/:genre   shelf    (one genre, 3D rack)
  *   #/book/:id       reader   (page one of a book)
  *
- * A scene is { enter(params, ctx), leave?(), canEnter?(params) }.
+ * A scene is { enter(params, ctx), leave?(), canEnter?(params), refresh?(params) }.
  */
 import { releaseStatic } from "./motion.js";
 
@@ -83,5 +83,10 @@ export function createRouter(scenes) {
     });
   }
 
-  return { start, show, resolve, navigate, back };
+  /** Redraw the current scene in place (data changed, URL didn't). */
+  function refresh() {
+    if (current && current.scene.refresh) current.scene.refresh(current.route.params);
+  }
+
+  return { start, show, resolve, navigate, back, refresh };
 }

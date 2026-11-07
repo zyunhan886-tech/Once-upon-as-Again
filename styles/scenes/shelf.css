@@ -178,42 +178,6 @@
 .genre-tab:hover { color: var(--paper); border-color: var(--gold-soft); }
 .genre-tab[aria-current="page"] { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 
-/* ── Unopened books in this genre ── */
-.waiting {
-  margin-top: clamp(64px, 10vh, 112px);
-  padding-top: 32px;
-  border-top: 1px solid var(--gold-faint);
-}
-.waiting__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-}
-.waiting__title { font-family: var(--serif); font-weight: 400; font-size: 32px; color: var(--paper); }
-.waiting__note { color: var(--text-muted); font-size: 14px; }
-.waiting__list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 168px));
-  gap: 28px;
-}
-.waiting__book {
-  display: grid;
-  gap: 12px;
-  text-decoration: none;
-}
-.waiting__book .cover-art {
-  aspect-ratio: 2 / 3;
-  height: auto;
-  box-shadow: 0 18px 30px -16px rgba(0, 0, 0, 0.9);
-  transition: transform 0.4s var(--ease-book);
-}
-.waiting__book:hover .cover-art,
-.waiting__book:focus-visible .cover-art { transform: translateY(-8px); }
-.waiting__label { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--gold); }
-
 @media (max-width: 640px) {
   .shelf-scene {
     --title-size: 15vw;
@@ -233,5 +197,4 @@
     padding: 0 var(--gutter) 4px;
     scrollbar-width: none;
   }
-  .waiting__list { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }

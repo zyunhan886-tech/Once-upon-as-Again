@@ -7,6 +7,7 @@
  *   ?state=bookshelf                        Act 2 hub
  *   ?state=shelf&genre=<id>                 genre shelf   (default: scifi)
  *   ?state=reader&book=<id>                 page one      (default: time-machine)
+ *   ?state=search&q=<text>                  Act 2 hub with Search open
  */
 import { qs } from "./src/core/dom.js";
 import { createRouter } from "./src/core/router.js";
@@ -15,6 +16,7 @@ import { createIntro } from "./src/scenes/intro.js";
 import { createLibrary } from "./src/scenes/library.js";
 import { createShelf } from "./src/scenes/shelf.js";
 import { createReader } from "./src/scenes/reader.js";
+import { createSearch } from "./src/components/search.js";
 
 const query = new URLSearchParams(location.search);
 
@@ -25,6 +27,7 @@ const CAPTURE = {
   bookshelf: () => ({ name: "library", params: {} }),
   shelf: () => ({ name: "shelf", params: { genre: query.get("genre") || "scifi" } }),
   reader: () => ({ name: "reader", params: { id: query.get("book") || "time-machine" } }),
+  search: () => ({ name: "library", params: {} }),
 };
 const capture = CAPTURE[query.get("state")]?.();
 
@@ -44,7 +47,15 @@ const scenes = {
 router = createRouter(scenes);
 router.start();
 
-qs('[data-action="replay"]').addEventListener("click", () => navigate("/"));
+// Search: the field beside "Discover", any [data-action="search"] (e.g. an empty shelf), "/" or ⌘K.
+const search = createSearch({ dialog: qs("#search") });
+document.addEventListener("click", (event) => {
+  if (event.target.closest('[data-action="search"]')) search.open();
+});
+
+// Adding a book (or opening / finishing one) redraws whatever scene is showing.
+document.addEventListener("reading:change", () => router.refresh());
 
 if (capture) router.show(capture, { static: true });
 else router.resolve();
+if (query.get("state") === "search") search.open(query.get("q") || "");

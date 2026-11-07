@@ -20,7 +20,7 @@ html.is-snapping *, html.is-snapping *::before, html.is-snapping *::after {
   .spread-text__line, .cta { transform: none !important; }
 
   .library, .reader, .shelf-scene, .note, .rack__item { animation: none; }
-  .spine, .note, .book3d, .waiting__book .cover-art, .cell__hint { transition: none; }
+  .spine, .note, .book3d, .search__result, .cell__hint { transition: none; }
   .spine:hover, .spine:focus-visible, .book3d:hover, .book3d:focus-visible { --lift: 0px; }
-  .note:hover, .note:focus-visible, .waiting__book:hover .cover-art { transform: none; }
+  .note:hover, .note:focus-visible { transform: none; }
 }

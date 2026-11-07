@@ -1,6 +1,6 @@
 /* Book spine on the Act 2 bookcase. */
-/* Slots shrink together when a shelf holds more books than fit (e.g. ten in one cell). */
-.spine-slot { display: flex; align-items: flex-end; height: 100%; flex: 0 1 var(--sw, 30px); min-width: 14px; }
+/* Spines keep their own width; a bay that runs out of room scrolls sideways (library.css). */
+.spine-slot { display: flex; align-items: flex-end; height: 100%; flex: 0 0 var(--sw, 30px); }
 
 .spine {
   --lift: 0px;
@@ -10,14 +10,16 @@
   width: 100%;
   height: var(--sh, 80%);
   padding: 12px 0;
-  /* A slice of the book's own cover art, rounded by light, darkened behind the title. */
+  /* A slice of the book's own cover art, rounded by light, and dark enough that the
+     title reads: an overall shade plus a deeper band down the middle where the title runs. */
   background:
     linear-gradient(to right, rgba(255, 255, 255, 0.12), transparent 30%, rgba(0, 0, 0, 0.35)),
-    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+    linear-gradient(to right, transparent, rgba(0, 0, 0, 0.35) 50%, transparent),
+    linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
     var(--c-img) 50% 12% / auto 150% no-repeat, /* artwork only, the cover's title box is cropped away */
     var(--c-bg);
-  color: var(--c-ink);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  color: #f5ede0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.7);
   border-radius: var(--radius-xs) var(--radius-xs) 1px 1px;
   text-decoration: none;
   writing-mode: vertical-rl;

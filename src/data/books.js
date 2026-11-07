@@ -1,6 +1,8 @@
 /**
  * Sample library — all public-domain works, so the first page can be shown in full.
  * Only books with a real cover image belong here: no placeholder art.
+ * A book without `reading` is in the catalogue but not on the reader's shelf yet —
+ * it shows up in Search (src/components/search.js) until it is added.
  *
  *   quote    → the line shown on a Discover note
  *   chapter  → heading on the reader's right page
@@ -95,6 +97,20 @@ export const BOOKS = [
     reading: { state: "finished", progress: 1 },
   },
 
+  {
+    id: "princess-of-mars", genre: "scifi", title: "A Princess of Mars", author: "Edgar Rice Burroughs", year: 1917,
+    cover: { src: "assets/covers/princess-of-mars.jpg", tone: "#7f5942" },
+    chapter: "Chapter I · On the Arizona Hills",
+    quote: "I am a very old man; how old I do not know.",
+    text: ["I am a very old man; how old I do not know. Possibly I am a hundred, possibly more; but I cannot tell because I have never aged as other men, nor do I remember any childhood. So far as I can recollect I have always been a man, a man of about thirty. I appear today as I did forty years and more ago, and yet I feel that I cannot go on living forever; that some day I shall die the real death from which there is no resurrection. I do not know why I should fear death, I who have died twice and am still alive; but yet I have the same horror of it as you who have never died, and it is because of this terror of death, I believe, that I am so convinced of my mortality."],
+  },
+  {
+    id: "earth-to-the-moon", genre: "scifi", title: "From the Earth to the Moon", author: "Jules Verne", year: 1865,
+    cover: { src: "assets/covers/earth-to-the-moon.jpg", tone: "#747568" },
+    chapter: "Chapter I · The Gun Club",
+    quote: "The Yankees, the first mechanicians in the world, are born engineers, just as Italians are musicians and Germans metaphysicians.",
+    text: ["During the Federal war in the United States a new and very influential club was established in the city of Baltimore, Maryland. It is well known with what energy the military instinct was developed amongst that nation of shipowners, shopkeepers, and mechanics. Mere tradesmen jumped their counters to become extempore captains, colonels, and generals without having passed the Military School at West Point; they soon rivalled their colleagues of the old continent, and, like them, gained victories by dint of lavishing bullets, millions, and men."],
+  },
   /* ── Fantasy ────────────────────────────────────── */
   {
     id: "alice", genre: "fantasy", title: "Alice’s Adventures in Wonderland", author: "Lewis Carroll", year: 1865,
@@ -121,6 +137,20 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.12 },
   },
 
+  {
+    id: "wind-in-the-willows", genre: "fantasy", title: "The Wind in the Willows", author: "Kenneth Grahame", year: 1908,
+    cover: { src: "assets/covers/wind-in-the-willows.jpg", tone: "#63553b" },
+    chapter: "Chapter I · The River Bank",
+    quote: "Believe me, my young friend, there is nothing—absolute nothing—half so much worth doing as simply messing about in boats.",
+    text: ["The Mole had been working very hard all the morning, spring-cleaning his little home. First with brooms, then with dusters; then on ladders and steps and chairs, with a brush and a pail of whitewash; till he had dust in his throat and eyes, and splashes of whitewash all over his black fur, and an aching back and weary arms. Spring was moving in the air above and in the earth below and around him, penetrating even his dark and lowly little house with its spirit of divine discontent and longing. It was small wonder, then, that he suddenly flung down his brush on the floor, said, “Bother!” and “O blow!” and also “Hang spring-cleaning!” and bolted out of the house without even waiting to put on his coat. …"],
+  },
+  {
+    id: "looking-glass", genre: "fantasy", title: "Through the Looking-Glass", author: "Lewis Carroll", year: 1871,
+    cover: { src: "assets/covers/looking-glass.jpg", tone: "#3d3529" },
+    chapter: "Chapter I · Looking-Glass House",
+    quote: "Why, sometimes I’ve believed as many as six impossible things before breakfast.",
+    text: ["One thing was certain, that the white kitten had had nothing to do with it:—it was the black kitten’s fault entirely. For the white kitten had been having its face washed by the old cat for the last quarter of an hour (and bearing it pretty well, considering); so you see that it couldn’t have had any hand in the mischief."],
+  },
   /* ── Mystery & Thriller ─────────────────────────── */
   {
     id: "hound", genre: "mystery", title: "The Hound of the Baskervilles", author: "Arthur Conan Doyle", year: 1902,
@@ -150,6 +180,20 @@ export const BOOKS = [
     reading: { state: "finished", progress: 1 },
   },
 
+  {
+    id: "thirty-nine-steps", genre: "mystery", title: "The Thirty-Nine Steps", author: "John Buchan", year: 1915,
+    cover: { src: "assets/covers/thirty-nine-steps.jpg", tone: "#483f37" },
+    chapter: "Chapter I · The Man Who Died",
+    quote: "I returned from the city about three o’clock on that May afternoon pretty well disgusted with life.",
+    text: ["I returned from the city about three o’clock on that May afternoon pretty well disgusted with life. I had been three months in the Old Country, and was fed up with it. If anyone had told me a year ago that I would have been feeling like that I should have laughed at him; but there was the fact. The weather made me liverish, the talk of the ordinary Englishman made me sick. I couldn’t get enough exercise, and the amusements of London seemed as flat as soda-water that has been standing in the sun. “Richard Hannay,” I kept telling myself, “you have got into the wrong ditch, my friend, and you had better climb out.”"],
+  },
+  {
+    id: "moonstone", genre: "mystery", title: "The Moonstone", author: "Wilkie Collins", year: 1868,
+    cover: { src: "assets/covers/moonstone.jpg", tone: "#5d4837" },
+    chapter: "Prologue · The Storming of Seringapatam (1799)",
+    quote: "I declare, on my word of honour, that what I am now about to write is, strictly and literally, the truth.",
+    text: ["I address these lines—written in India—to my relatives in England.", "My object is to explain the motive which has induced me to refuse the right hand of friendship to my cousin, John Herncastle. The reserve which I have hitherto maintained in this matter has been misinterpreted by members of my family whose good opinion I cannot consent to forfeit. I request them to suspend their decision until they have read my narrative. And I declare, on my word of honour, that what I am now about to write is, strictly and literally, the truth."],
+  },
   /* ── Romance ────────────────────────────────────── */
   {
     id: "pride-and-prejudice", genre: "romance", title: "Pride and Prejudice", author: "Jane Austen", year: 1813,
@@ -171,6 +215,20 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.71 },
   },
 
+  {
+    id: "persuasion", genre: "romance", title: "Persuasion", author: "Jane Austen", year: 1817,
+    cover: { src: "assets/covers/persuasion.jpg", tone: "#453f30" },
+    chapter: "Chapter I",
+    quote: "I can listen no longer in silence. I must speak to you by such means as are within my reach.",
+    text: ["Sir Walter Elliot, of Kellynch Hall, in Somersetshire, was a man who, for his own amusement, never took up any book but the Baronetage; there he found occupation for an idle hour, and consolation in a distressed one; there his faculties were roused into admiration and respect, by contemplating the limited remnant of the earliest patents; there any unwelcome sensations, arising from domestic affairs changed naturally into pity and contempt as he turned over the almost endless creations of the last century; and there, if every other leaf were powerless, he could read his own history with an interest which never failed. This was the page at which the favourite volume always opened:"],
+  },
+  {
+    id: "sense-and-sensibility", genre: "romance", title: "Sense and Sensibility", author: "Jane Austen", year: 1811,
+    cover: { src: "assets/covers/sense-and-sensibility.jpg", tone: "#453721" },
+    chapter: "Chapter I",
+    quote: "The more I know of the world, the more am I convinced that I shall never see a man whom I can really love.",
+    text: ["The family of Dashwood had long been settled in Sussex. Their estate was large, and their residence was at Norland Park, in the centre of their property, where, for many generations, they had lived in so respectable a manner as to engage the general good opinion of their surrounding acquaintance. The late owner of this estate was a single man, who lived to a very advanced age, and who for many years of his life, had a constant companion and housekeeper in his sister. But her death, which happened ten years before his own, produced a great alteration in his home; for to supply her loss, he invited and received into his house the family of his nephew Mr. Henry Dashwood, the legal inheritor of the Norland estate, and the person to whom he intended to bequeath it. …"],
+  },
   /* ── Historical Fiction ─────────────────────────── */
   {
     id: "tale-of-two-cities", genre: "historical", title: "A Tale of Two Cities", author: "Charles Dickens", year: 1859,
@@ -181,6 +239,20 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.34 },
   },
 
+  {
+    id: "three-musketeers", genre: "historical", title: "The Three Musketeers", author: "Alexandre Dumas", year: 1844,
+    cover: { src: "assets/covers/three-musketeers.jpg", tone: "#251b0e" },
+    chapter: "Chapter I · The Three Presents of d’Artagnan the Elder",
+    quote: "All for one, one for all—that is our motto, is it not?",
+    text: ["On the first Monday of the month of April, 1625, the market town of Meung, in which the author of Romance of the Rose was born, appeared to be in as perfect a state of revolution as if the Huguenots had just made a second La Rochelle of it. Many citizens, seeing the women flying toward the High Street, leaving their children crying at the open doors, hastened to don the cuirass, and supporting their somewhat uncertain courage with a musket or a partisan, directed their steps toward the hostelry of the Jolly Miller, before which was gathered, increasing every minute, a compact group, vociferous and full of curiosity."],
+  },
+  {
+    id: "ivanhoe", genre: "historical", title: "Ivanhoe", author: "Walter Scott", year: 1819,
+    cover: { src: "assets/covers/ivanhoe.jpg", tone: "#342c21" },
+    chapter: "Chapter I",
+    quote: "In that pleasant district of merry England which is watered by the river Don, there extended in ancient times a large forest …",
+    text: ["In that pleasant district of merry England which is watered by the river Don, there extended in ancient times a large forest, covering the greater part of the beautiful hills and valleys which lie between Sheffield and the pleasant town of Doncaster. The remains of this extensive wood are still to be seen at the noble seats of Wentworth, of Warncliffe Park, and around Rotherham. Here haunted of yore the fabulous Dragon of Wantley; here were fought many of the most desperate battles during the Civil Wars of the Roses; and here also flourished in ancient times those bands of gallant outlaws, whose deeds have been rendered so popular in English song."],
+  },
   /* ── Horror ─────────────────────────────────────── */
   {
     id: "dracula", genre: "horror", title: "Dracula", author: "Bram Stoker", year: 1897,
@@ -191,6 +263,20 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.48 },
   },
 
+  {
+    id: "jekyll-and-hyde", genre: "horror", title: "Strange Case of Dr Jekyll and Mr Hyde", author: "Robert Louis Stevenson", year: 1886,
+    cover: { src: "assets/covers/jekyll-and-hyde.jpg", tone: "#322a25" },
+    chapter: "Story of the Door",
+    quote: "Man is not truly one, but truly two.",
+    text: ["Mr. Utterson the lawyer was a man of a rugged countenance that was never lighted by a smile; cold, scanty and embarrassed in discourse; backward in sentiment; lean, long, dusty, dreary and yet somehow lovable. At friendly meetings, and when the wine was to his taste, something eminently human beaconed from his eye; something indeed which never found its way into his talk, but which spoke not only in these silent symbols of the after-dinner face, but more often and loudly in the acts of his life. He was austere with himself; drank gin when he was alone, to mortify a taste for vintages; and though he enjoyed the theatre, had not crossed the doors of one for twenty years. But he had an approved tolerance for others; sometimes wondering, almost with envy, at the high pressure of spirits involved in their misdeeds; …"],
+  },
+  {
+    id: "turn-of-the-screw", genre: "horror", title: "The Turn of the Screw", author: "Henry James", year: 1898,
+    cover: { src: "assets/covers/turn-of-the-screw.jpg", tone: "#515244" },
+    chapter: "Prologue",
+    quote: "If the child gives the effect another turn of the screw, what do you say to two children—?",
+    text: ["The story had held us, round the fire, sufficiently breathless, but except the obvious remark that it was gruesome, as, on Christmas Eve in an old house, a strange tale should essentially be, I remember no comment uttered till somebody happened to say that it was the only case he had met in which such a visitation had fallen on a child. The case, I may mention, was that of an apparition in just such an old house as had gathered us for the occasion—an appearance, of a dreadful kind, to a little boy sleeping in the room with his mother and waking her up in the terror of it; waking her not to dissipate his dread and soothe him to sleep again, but to encounter also, herself, before she had succeeded in doing so, the same sight that had shaken him. …"],
+  },
   /* ── Adventure ──────────────────────────────────── */
   {
     id: "treasure-island", genre: "adventure", title: "Treasure Island", author: "Robert Louis Stevenson", year: 1883,
@@ -217,6 +303,20 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.82 },
   },
 
+  {
+    id: "call-of-the-wild", genre: "adventure", title: "The Call of the Wild", author: "Jack London", year: 1903,
+    cover: { src: "assets/covers/call-of-the-wild.jpg", tone: "#524947" },
+    chapter: "Chapter I · Into the Primitive",
+    quote: "Buck did not read the newspapers, or he would have known that trouble was brewing …",
+    text: ["Buck did not read the newspapers, or he would have known that trouble was brewing, not alone for himself, but for every tidewater dog, strong of muscle and with warm, long hair, from Puget Sound to San Diego. Because men, groping in the Arctic darkness, had found a yellow metal, and because steamship and transportation companies were booming the find, thousands of men were rushing into the Northland. These men wanted dogs, and the dogs they wanted were heavy dogs, with strong muscles by which to toil, and furry coats to protect them from the frost."],
+  },
+  {
+    id: "king-solomons-mines", genre: "adventure", title: "King Solomon’s Mines", author: "H. Rider Haggard", year: 1885,
+    cover: { src: "assets/covers/king-solomons-mines.jpg", tone: "#35392b" },
+    chapter: "Chapter I · I Meet Sir Henry Curtis",
+    quote: "It is a curious thing that at my age—fifty-five last birthday—I should find myself taking up a pen to try to write a history.",
+    text: ["It is a curious thing that at my age—fifty-five last birthday—I should find myself taking up a pen to try to write a history. I wonder what sort of a history it will be when I have finished it, if ever I come to the end of the trip! I have done a good many things in my life, which seems a long one to me, owing to my having begun work so young, perhaps. At an age when other boys are at school I was earning my living as a trader in the old Colony. I have been trading, hunting, fighting, or mining ever since. And yet it is only eight months ago that I made my pile. It is a big pile now that I have got it—I don’t yet know how big—but I do not think I would go through the last fifteen or sixteen months again for it; no, not if I knew that I should come out safe at the end, pile and all. But then I am a timid man, and dislike violence; …"],
+  },
   /* ── Literary Fiction ───────────────────────────── */
   {
     id: "gatsby", genre: "literary", title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925,
@@ -244,6 +344,20 @@ export const BOOKS = [
     quote: "The only way to get rid of a temptation is to yield to it.",
     text: ["The studio was filled with the rich odour of roses, and when the light summer wind stirred amidst the trees of the garden, there came through the open door the heavy scent of the lilac, or the more delicate perfume of the pink-flowering thorn."],
     reading: { state: "reading", progress: 0.57 },
+  },
+  {
+    id: "little-women", genre: "literary", title: "Little Women", author: "Louisa May Alcott", year: 1868,
+    cover: { src: "assets/covers/little-women.jpg", tone: "#5e442d" },
+    chapter: "Part I · Chapter I · Playing Pilgrims",
+    quote: "I’m not afraid of storms, for I’m learning how to sail my ship.",
+    text: ["“Christmas won’t be Christmas without any presents,” grumbled Jo, lying on the rug.", "“It’s so dreadful to be poor!” sighed Meg, looking down at her old dress."],
+  },
+  {
+    id: "middlemarch", genre: "literary", title: "Middlemarch", author: "George Eliot", year: 1871,
+    cover: { src: "assets/covers/middlemarch.jpg", tone: "#453f30" },
+    chapter: "Book I · Miss Brooke · Chapter I",
+    quote: "Miss Brooke had that kind of beauty which seems to be thrown into relief by poor dress.",
+    text: ["Miss Brooke had that kind of beauty which seems to be thrown into relief by poor dress. Her hand and wrist were so finely formed that she could wear sleeves not less bare of style than those in which the Blessed Virgin appeared to Italian painters; and her profile as well as her stature and bearing seemed to gain the more dignity from her plain garments, which by the side of provincial fashion gave her the impressiveness of a fine quotation from the Bible—or from one of our elder poets—in a paragraph of today’s newspaper. She was usually spoken of as being remarkably clever, but with the addition that her sister Celia had more common sense. Nevertheless, Celia wore scarcely more trimmings; and it was only to close observers that her dress differed from her sister’s, and had a shade of coquetry in its arrangements; …"],
   },
 ];
 

@@ -9,6 +9,7 @@
  *   - the book nearest the centre is reported through `onCenter`.
  */
 import { isReduced } from "../core/motion.js";
+import { bindDragScroll } from "../core/dragscroll.js";
 
 export function bindRack(rack, { prev, next, onCenter }) {
   const items = () => [...rack.querySelectorAll(".book3d")];
@@ -73,45 +74,8 @@ export function bindRack(rack, { prev, next, onCenter }) {
     rack.scrollLeft += e.deltaY;
   }, { passive: false });
 
-  // ── Mouse drag ──
-  let drag = null;
-  let swallowClick = false;
-  // the click that follows a drag must not open the book under the cursor
-  rack.addEventListener("click", (e) => {
-    if (!swallowClick) return;
-    e.preventDefault();
-    e.stopPropagation();
-  }, { capture: true });
-  rack.addEventListener("pointerdown", (e) => {
-    if (e.pointerType !== "mouse" || e.button !== 0) return;
-    drag = { x: e.clientX, left: rack.scrollLeft, moved: false, id: e.pointerId };
-  });
-  rack.addEventListener("pointermove", (e) => {
-    if (!drag || e.pointerId !== drag.id) return;
-    const dx = e.clientX - drag.x;
-    if (!drag.moved && Math.abs(dx) < 6) return;
-    if (!drag.moved) {
-      drag.moved = true;
-      userMoved = true;
-      rack.classList.add("is-dragging");
-      rack.setPointerCapture(drag.id);
-    }
-    rack.scrollLeft = drag.left - dx;
-  });
-  const end = () => {
-    if (!drag) return;
-    const moved = drag.moved;
-    rack.classList.remove("is-dragging");
-    if (rack.hasPointerCapture?.(drag.id)) rack.releasePointerCapture(drag.id);
-    drag = null;
-    if (moved) {
-      swallowClick = true; // the click (if any) fires right after pointerup, before this timeout
-      setTimeout(() => { swallowClick = false; }, 0);
-    }
-  };
-  rack.addEventListener("pointerup", end);
-  rack.addEventListener("pointercancel", end);
-  rack.addEventListener("dragstart", (e) => e.preventDefault()); // no ghost image of links/images
+  // ── Mouse drag (shared with the bookcase bays) ──
+  bindDragScroll(rack, { onMove: () => { userMoved = true; } });
 
   // Touch swipes are native scrolling; count them as "moved" for the caption.
   rack.addEventListener("touchstart", () => { userMoved = true; }, { passive: true });

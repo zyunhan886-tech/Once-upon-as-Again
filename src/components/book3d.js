@@ -9,8 +9,9 @@ import { readingOf } from "../core/store.js";
 export function statusLabel(book) {
   const r = readingOf(book);
   if (r.state === "finished") return "Finished";
-  if (r.state === "reading") return `Reading · ${Math.round(r.progress * 100)}%`;
-  return "Not started";
+  if (r.state === "reading") return `Reading · ${Math.max(1, Math.round(r.progress * 100))}%`;
+  if (r.state === "shelved") return "On the shelf · not started";
+  return "Not on your shelf";
 }
 
 export function renderBook3D(book, index) {

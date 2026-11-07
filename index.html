@@ -12,7 +12,7 @@
     (function () {
       var d = document.documentElement;
       var s = new URLSearchParams(location.search).get("state");
-      var capture = { closed: "intro", opening: "intro", open: "intro", bookshelf: "library", shelf: "shelf", reader: "reader" };
+      var capture = { closed: "intro", opening: "intro", open: "intro", bookshelf: "library", shelf: "shelf", reader: "reader", search: "library" };
       if (capture[s]) {
         d.dataset.scene = capture[s];
         if (capture[s] === "intro") d.dataset.intro = s;
@@ -38,7 +38,6 @@
     <p class="masthead__meta">A reading companion <span aria-hidden="true">—</span> No. 01</p>
     <nav class="masthead__nav" aria-label="Primary">
       <a class="masthead__link" href="#/library">Library</a>
-      <button class="masthead__link" type="button" data-action="replay">Replay intro</button>
     </nav>
   </header>
 
@@ -99,10 +98,15 @@
         </div>
 
         <div class="library__discover">
-          <header class="section-head">
+          <header class="section-head section-head--with-search">
             <p class="eyebrow">02 <span aria-hidden="true">—</span> Notes</p>
             <h2 class="section-head__title">Discover</h2>
             <p class="section-head__note">Lines readers have underlined and shared across the web. Open a note to read the book’s first page.</p>
+            <button class="discover__search" type="button" data-action="search" aria-haspopup="dialog" aria-controls="search" aria-keyshortcuts="/">
+              <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10.8 10.8 15 15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="discover__search-text">Search books &amp; authors</span>
+              <kbd class="discover__search-key" aria-hidden="true">/</kbd>
+            </button>
           </header>
 
           <div class="discover__toolbar">
@@ -157,6 +161,27 @@
       </div>
     </section>
   </main>
+
+  <!-- ═════════ Search · the whole catalogue (src/components/search.js) ═════════ -->
+  <dialog class="search" id="search" aria-labelledby="search-title">
+    <div class="search__panel">
+      <header class="search__head">
+        <div>
+          <p class="eyebrow">The catalogue</p>
+          <h2 class="search__heading" id="search-title">Find a book</h2>
+        </div>
+        <button class="search__close" type="button" data-search-close aria-label="Close search">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+      <form class="search__form" role="search">
+        <label class="search__label" for="search-input">Title, author or genre</label>
+        <input class="search__input" id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Try “Austen”, “Mars” or “Horror”">
+      </form>
+      <p class="search__status" id="search-status" aria-live="polite"></p>
+      <ul class="search__results" id="search-results"></ul>
+    </div>
+  </dialog>
 
   <script type="module" src="app.js"></script>
 </body>

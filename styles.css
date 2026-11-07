@@ -11,6 +11,7 @@
 @import url("styles/components/spine.css");
 @import url("styles/components/book3d.css");
 @import url("styles/components/note.css");
+@import url("styles/components/search.css");
 
 @import url("styles/scenes/intro.css");
 @import url("styles/scenes/library.css");
