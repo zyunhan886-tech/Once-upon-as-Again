@@ -1,4 +1,4 @@
-# MendReading
+# Once Upon an Again
 
 A reading-habit app in two acts. Pure HTML, CSS and native ES modules: no npm, no build step.
 
@@ -44,7 +44,7 @@ src/
     genres.js              8 genres: name, tagline, cover palette, note tint
     books.js               32 public-domain books: quote, chapter, page-one text, seeded status
   components/              pure functions: data → HTML string
-    cover.js               generated cover art (SVG motif per genre + real-text title)
+    cover.js               the book's real cover image (no generated art)
     spine.js               bookcase spine
     book3d.js              six-face 3D book for the rack
     note.js                taped Discover note
@@ -62,6 +62,6 @@ styles/
 State lives on `<html>`: `data-scene` picks the visible scene; `data-intro` holds the Act 1 phase
 (`closed | opening | open | closing`); `.is-static` freezes motion for capture links.
 
-**Adding a book:** append it to `src/data/books.js` with a `genre` id. Its cover, spine, note and reader page are generated automatically.
-**Adding a genre:** add it to `src/data/genres.js` and add a motif in `src/components/cover.js` plus an icon in `src/components/note.js`.
+**Adding a book:** only books with a real cover are listed. Put a 2:3 JPEG at `assets/covers/<book-id>.jpg` (≈480×720; originals live in `cover/`), then append the book to `src/data/books.js` with a `genre` id and `cover: { src, tone }` — `tone` is the image's average colour, darkened, used for the 3D book sides. Its spine (a slice of the cover art), note and reader page follow automatically.
+**Adding a genre:** add it to `src/data/genres.js` and add an icon in `src/components/note.js`.
 # UX-MendReading

@@ -32,7 +32,7 @@ export function createIntro({ root, navigate }) {
 
   return {
     enter(_params, ctx) {
-      document.title = "MendReading — Do you remember the last time you read a book?";
+      document.title = "Once Upon an Again — Do you remember the last time you read a book?";
       if (ctx.static) return; // ?state=closed|opening|open: the phase is already set, hold it
       play();
     },

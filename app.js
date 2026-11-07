@@ -1,5 +1,5 @@
 /**
- * MendReading — entry point.
+ * Once Upon an Again — entry point.
  * Wires data → store → scenes → router. No dependencies, native ES modules.
  *
  * Capture links (frozen, never auto-advance):

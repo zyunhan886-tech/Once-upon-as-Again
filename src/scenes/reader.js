@@ -32,7 +32,7 @@ export function createReader({ root, back }) {
       book = bookById[id];
       const g = genreById[book.genre];
       markOpened(book); // reading page one puts the book on the rack
-      document.title = `${book.title} — MendReading`;
+      document.title = `${book.title} — Once Upon an Again`;
 
       el("reader-cover").innerHTML = renderCover(book, { size: "sm" });
       el("reader-genre").textContent = `${g.name} · ${book.year}`;

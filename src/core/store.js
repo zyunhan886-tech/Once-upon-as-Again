@@ -7,7 +7,7 @@
  */
 import { BOOKS } from "../data/books.js";
 
-const KEY = "mendreading:reading:v1";
+const KEY = "onceuponanagain:reading:v1";
 const NONE = Object.freeze({ state: "none", progress: 0 });
 
 let saved = {};

@@ -87,7 +87,7 @@ export function createShelf({ root }) {
   return {
     canEnter: ({ genre }) => Boolean(genreById[genre]),
     enter({ genre }) {
-      document.title = `${genreById[genre].name} — MendReading`;
+      document.title = `${genreById[genre].name} — Once Upon an Again`;
       render(genre);
       if (!isStatic()) focusHeading(qs("#shelf-scene-title", root));
     },

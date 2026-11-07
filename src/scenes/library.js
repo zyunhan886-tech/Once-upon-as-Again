@@ -56,7 +56,7 @@ export function createLibrary({ root }) {
 
   return {
     enter() {
-      document.title = "Library — MendReading";
+      document.title = "Library — Once Upon an Again";
       select.value = taste;
       renderBookcase();
       renderNotes();

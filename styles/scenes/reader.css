@@ -56,7 +56,6 @@
   margin-bottom: 10px;
   box-shadow: 0 10px 18px -8px rgba(0, 0, 0, 0.5);
 }
-.reader__cover .cover-art__author { display: none; }
 .reader__title {
   font-family: var(--serif);
   font-weight: 500;

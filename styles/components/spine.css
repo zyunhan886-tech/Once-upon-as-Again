@@ -9,10 +9,14 @@
   width: var(--sw, 30px);
   height: var(--sh, 80%);
   padding: 12px 0;
+  /* A slice of the book's own cover art, rounded by light, darkened behind the title. */
   background:
-    linear-gradient(to right, rgba(255, 255, 255, 0.09), transparent 30%, rgba(0, 0, 0, 0.25)),
+    linear-gradient(to right, rgba(255, 255, 255, 0.12), transparent 30%, rgba(0, 0, 0, 0.35)),
+    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+    var(--c-img) 50% 12% / auto 150% no-repeat, /* artwork only, the cover's title box is cropped away */
     var(--c-bg);
   color: var(--c-ink);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   border-radius: var(--radius-xs) var(--radius-xs) 1px 1px;
   text-decoration: none;
   writing-mode: vertical-rl;

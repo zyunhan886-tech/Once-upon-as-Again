@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MendReading — stylesheet entry. Order matters: tokens → base → components
+   Once Upon an Again — stylesheet entry. Order matters: tokens → base → components
    → scenes → motion overrides.
    ========================================================================== */
 @import url("styles/tokens.css");
