@@ -1,12 +1,13 @@
 /* Book spine on the Act 2 bookcase. */
-.spine-slot { display: flex; align-items: flex-end; height: 100%; }
+/* Slots shrink together when a shelf holds more books than fit (e.g. ten in one cell). */
+.spine-slot { display: flex; align-items: flex-end; height: 100%; flex: 0 1 var(--sw, 30px); min-width: 14px; }
 
 .spine {
   --lift: 0px;
   position: relative;
   z-index: 1; /* above the cell's stretched shelf link */
   display: block;
-  width: var(--sw, 30px);
+  width: 100%;
   height: var(--sh, 80%);
   padding: 12px 0;
   /* A slice of the book's own cover art, rounded by light, darkened behind the title. */

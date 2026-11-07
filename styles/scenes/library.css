@@ -29,7 +29,7 @@
 
 .bookcase {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* equal cells, whatever a shelf holds */
   border: 1px solid var(--gold-soft);
   border-radius: var(--radius-xs);
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.015), rgba(0, 0, 0, 0));
@@ -100,6 +100,7 @@
   align-items: flex-end;
   gap: 4px;
   min-height: 0;
+  min-width: 0;
   position: relative;
   pointer-events: none; /* gaps fall through to the shelf link… */
 }
@@ -149,7 +150,8 @@
   .cell__link { font-size: 15px; }
   .cell__no { display: none; }
   .cell__books { gap: 3px; }
-  .cell .spine { width: calc(var(--sw) * 0.82); font-size: 11px; }
+  .cell .spine-slot { flex-basis: calc(var(--sw) * 0.82); }
+  .cell .spine { font-size: 11px; }
   .notes { grid-template-columns: 1fr; gap: 34px; }
   .note__quote { font-size: 21px; }
 }

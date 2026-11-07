@@ -48,3 +48,12 @@ html[data-scene="intro"] .masthead__mark { pointer-events: none; }
 @media (max-width: 900px) {
   .masthead__meta { display: none; }
 }
+.masthead__mark,
+.masthead__link { white-space: nowrap; }
+@media (max-width: 480px) {
+  .masthead { gap: 12px; }
+  .masthead__mark { font-size: 18px; gap: 8px; }
+  .masthead__nav { gap: 14px; }
+  .masthead__link { letter-spacing: 0.14em; font-size: 10px; }
+  .masthead__link[data-action="replay"] { display: none; } /* the library link is enough at phone width */
+}

@@ -3,10 +3,11 @@
    ========================================================================== */
 .shelf-scene {
   --title-size: min(14vw, calc(172vw / var(--len)));
-  --bw: clamp(150px, 13.5vw, 206px);   /* book width  */
-  --bh: calc(var(--bw) * 1.48);         /* book height */
-  --bd: calc(var(--bw) * 0.16);         /* book depth  */
-  --step: calc(var(--bw) * 0.52);       /* spacing along the rack */
+  --bw: clamp(160px, 15vw, 228px);     /* book width  */
+  --bh: calc(var(--bw) * 1.5);          /* book height */
+  --bd: calc(var(--bw) * 0.15);         /* book depth  */
+  --step: calc(var(--bw) * 0.7);        /* spacing along the row */
+  --turn: -50deg;                       /* every cover faces the reader's left, like a shelf seen from an angle */
   max-width: 1440px;
   margin: 0 auto;
   padding: 22px var(--gutter) 96px;
@@ -48,51 +49,62 @@
   white-space: nowrap;
 }
 
-/* ── The rack ── */
+/* ── The rack: a horizontal scroller of standing books ──
+   Books overlap only the foot of the title, so the genre name stays readable. */
 .rack {
   position: relative;
   z-index: 1;
-  width: 100%;
-  margin-top: calc(var(--title-size) * -0.62);
-  height: calc(var(--bh) + 70px);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  perspective: 1500px;
-  perspective-origin: 30% -40%;
-  pointer-events: none;
+  /* full bleed inside the scene's gutters */
+  width: calc(100% + var(--gutter) * 2);
+  margin: calc(var(--title-size) * -0.2) calc(var(--gutter) * -1) 0;
+  padding: 56px 0 44px; /* room for the hover lift and the gilt tops */
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  perspective: 1600px;
+  perspective-origin: 50% -30%;
+  /* soften both ends so the row reads as continuing past the frame */
+  /* floor shadow: a scroller's own background stays put while the books move */
+  background: radial-gradient(ellipse 42% 26px at 50% calc(100% - 40px), rgba(0, 0, 0, 0.75), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
 }
-.rack::after {
-  /* floor shadow */
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -14px;
-  width: min(900px, 90%);
-  height: 50px;
-  transform: translateX(-50%);
-  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.8), transparent);
-  filter: blur(4px);
-  z-index: -1;
-}
+.rack::-webkit-scrollbar { display: none; }
+.rack.is-scrollable { cursor: grab; }
+.rack.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.rack.is-dragging .book3d { pointer-events: none; }
+
 .rack__track {
-  position: relative;
-  width: calc((var(--n) - 1) * var(--step) + var(--bw));
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
   height: var(--bh);
+  /* side padding lets the first and last book reach the centre */
+  padding-inline: calc(50% - var(--bw) / 2);
   transform-style: preserve-3d;
-  transform: translateX(calc(var(--bw) * -0.1)) rotateY(22deg);
-  pointer-events: auto;
 }
 .rack__item {
-  position: absolute;
-  bottom: 0;
-  left: calc(var(--i) * var(--step));
-  width: var(--bw);
+  position: relative;
+  flex: 0 0 var(--step);
   height: var(--bh);
+  scroll-snap-align: center;
   transform-style: preserve-3d;
   animation: stand 0.9s var(--ease-book) both;
-  animation-delay: calc(0.15s + var(--i) * 90ms);
+  animation-delay: calc(0.15s + var(--i) * 70ms);
 }
+.rack__item:last-child { flex-basis: var(--bw); }
+.rack__item .book3d {
+  inset: auto;
+  left: 0;
+  bottom: 0;
+  width: var(--bw);
+  height: var(--bh);
+  --book-turn: var(--turn);
+}
+
+
 @keyframes stand {
   /* transform only: opacity < 1 would flatten the 3D book */
   from { transform: translateY(60px); }
@@ -108,12 +120,35 @@
 }
 
 /* ── Caption follows the hovered book ── */
+.rack-controls {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 16px;
+  max-width: 640px;
+  margin: 8px auto 0;
+}
+.rack-nav {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--gold-soft);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+.rack-nav:hover:not(:disabled) { background: var(--gold); color: var(--ink); }
+.rack-nav:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+.rack-nav:disabled { opacity: 0.25; cursor: default; }
+
 .shelf-caption {
   display: grid;
   justify-items: center;
   gap: 4px;
   min-height: 64px;
-  margin-top: 48px;
   text-align: center;
 }
 .shelf-caption__title { font-family: var(--serif); font-size: 26px; color: var(--paper); line-height: 1.2; }
@@ -182,11 +217,13 @@
 @media (max-width: 640px) {
   .shelf-scene {
     --title-size: 15vw;
-    --bw: 112px;
-    --step: calc(var(--bw) * 0.55);
+    --bw: 116px;
+    --step: calc(var(--bw) * 0.62);
   }
   .shelf-hero__title { white-space: normal; max-width: 9ch; }
-  .rack { margin-top: calc(var(--title-size) * -0.35); perspective: 900px; }
+  .rack { margin-top: calc(var(--title-size) * -0.08); padding-top: 40px; perspective: 1000px; }
+  .rack-controls { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 10px; }
+  .rack-nav { width: 40px; height: 40px; }
   .genre-tabs {
     flex-wrap: nowrap;
     justify-content: flex-start;

@@ -1,7 +1,8 @@
 /**
- * Genre shelf — the giant genre name sits behind a rack of standing 3D books.
- * The rack holds only books the reader is reading or has finished; everything
- * else in the genre waits underneath. Tabs at the bottom switch genres.
+ * Genre shelf — the giant genre name sits above a long, scrollable row of
+ * standing 3D books (src/components/rack.js). The row holds only books the
+ * reader is reading or has finished; anything unopened waits underneath.
+ * Tabs at the bottom switch genres.
  */
 import { qs, esc, focusHeading } from "../core/dom.js";
 import { isStatic } from "../core/motion.js";
@@ -9,6 +10,7 @@ import { GENRES, genreById, genreIndex } from "../data/genres.js";
 import { booksIn, bookById } from "../data/books.js";
 import { readingOf } from "../core/store.js";
 import { renderBook3D, statusLabel } from "../components/book3d.js";
+import { bindRack } from "../components/rack.js";
 import { renderCover } from "../components/cover.js";
 
 const ORDER = { reading: 0, finished: 1 };
@@ -52,13 +54,17 @@ export function createShelf({ root }) {
           <h2 class="shelf-hero__title" id="shelf-scene-title" tabindex="-1">${esc(g.name)}</h2>
           <p class="shelf-hero__tagline">${esc(g.tagline)}</p>
           ${rack.length
-            ? `<div class="rack" aria-label="Reading and finished">
+            ? `<div class="rack" aria-label="Reading and finished — drag or swipe to browse">
                  <ul class="rack__track" style="--n:${rack.length}">${rack.map(renderBook3D).join("")}</ul>
                </div>`
             : `<p class="rack-empty">Nothing from this shelf yet. Start with one page below.</p>`}
         </div>
 
-        <p class="shelf-caption" aria-live="polite"></p>
+        <div class="rack-controls">
+          <button class="rack-nav" type="button" data-rack="prev" aria-label="Previous books">←</button>
+          <p class="shelf-caption" aria-live="polite"></p>
+          <button class="rack-nav" type="button" data-rack="next" aria-label="Next books">→</button>
+        </div>
 
         <nav class="genre-tabs" aria-label="Genres">
           ${GENRES.map((x) => `<a class="genre-tab" href="#/shelf/${x.id}"${x.id === genre ? ' aria-current="page"' : ""}>${esc(x.name)}</a>`).join("")}
@@ -82,6 +88,15 @@ export function createShelf({ root }) {
 
     caption = qs(".shelf-caption", root);
     describe(rack[0]);
+
+    const rackEl = qs(".rack", root);
+    if (rackEl) {
+      bindRack(rackEl, {
+        prev: qs('[data-rack="prev"]', root),
+        next: qs('[data-rack="next"]', root),
+        onCenter: (id) => describe(bookById[id]),
+      });
+    }
   }
 
   return {

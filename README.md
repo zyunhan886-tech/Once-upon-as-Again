@@ -48,6 +48,7 @@ src/
     spine.js               bookcase spine
     book3d.js              six-face 3D book for the rack
     note.js                taped Discover note
+    rack.js                genre-shelf row: native horizontal scroll + mouse drag, wheel, ←/→ paging, centred-book caption
   scenes/                  each exports create*(deps) → { enter(params, ctx), leave?, canEnter? }
     intro.js  library.js  shelf.js  reader.js
 
@@ -62,5 +63,5 @@ styles/
 State lives on `<html>`: `data-scene` picks the visible scene; `data-intro` holds the Act 1 phase
 (`closed | opening | open | closing`); `.is-static` freezes motion for capture links.
 
-**Adding a book:** only books with a real cover are listed. Put a 2:3 JPEG at `assets/covers/<book-id>.jpg` (≈480×720; originals live in `cover/`), then append the book to `src/data/books.js` with a `genre` id and `cover: { src, tone }` — `tone` is the image's average colour, darkened, used for the 3D book sides. Its spine (a slice of the cover art), note and reader page follow automatically.
+**Adding a book:** only books with a real cover are listed; covers and opening pages come from Standard Ebooks (standardebooks.org — the cover is `…/downloads/cover.jpg`, the text is `…/text/single-page`). Put a 2:3 JPEG at `assets/covers/<book-id>.jpg` (≈480×720; originals live in `cover/`), then append the book to `src/data/books.js` with a `genre` id and `cover: { src, tone }` — `tone` is the image's average colour, darkened, used for the 3D book sides. Its spine (a slice of the cover art), note and reader page follow automatically.
 **Adding a genre:** add it to `src/data/genres.js` and add an icon in `src/components/note.js`.

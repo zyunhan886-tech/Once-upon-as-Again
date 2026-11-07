@@ -11,9 +11,9 @@ export function renderSpine(book) {
   const r = readingOf(book);
   const status = r.state === "finished" ? "finished" : r.state === "reading" ? `reading, ${Math.round(r.progress * 100)}%` : "not started";
   return `
-    <li class="spine-slot">
+    <li class="spine-slot" style="--sw:${width}px">
       <a class="spine${r.state !== "none" ? ` is-${r.state}` : ""}" href="#/book/${book.id}"
-         style="${coverStyle(book)};--sw:${width}px;--sh:${height}%;--lean:${lean}deg"
+         style="${coverStyle(book)};--sh:${height}%;--lean:${lean}deg"
          aria-label="${esc(book.title)} by ${esc(book.author)} — ${status}" title="${esc(book.title)}">
         <span class="spine__title">${esc(book.title)}</span>
       </a>

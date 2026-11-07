@@ -38,6 +38,63 @@ export const BOOKS = [
     reading: { state: "reading", progress: 0.18 },
   },
 
+  {
+    id: "invisible-man", genre: "scifi", title: "The Invisible Man", author: "H. G. Wells", year: 1897,
+    cover: { src: "assets/covers/invisible-man.jpg", tone: "#6e716c" },
+    chapter: "Chapter I · The Strange Man’s Arrival",
+    quote: "An invisible man is a man of power.",
+    text: ["The stranger came early in February, one wintry day, through a biting wind and a driving snow, the last snowfall of the year, over the down, walking from Bramblehurst railway station, and carrying a little black portmanteau in his thickly gloved hand. He was wrapped up from head to foot, and the brim of his soft felt hat hid every inch of his face but the shiny tip of his nose; the snow had piled itself against his shoulders and chest, and added a white crest to the burden he carried. He staggered into the Coach and Horses more dead than alive, and flung his portmanteau down. “A fire,” he cried, “in the name of human charity! A room and a fire!” He stamped and shook the snow from off himself in the bar, and followed Mrs. Hall into her guest parlour to strike his bargain. And with that much introduction, that and a couple of sovereigns flung upon the table, he took up his quarters in the inn."],
+    reading: { state: "reading", progress: 0.65 },
+  },
+  {
+    id: "doctor-moreau", genre: "scifi", title: "The Island of Doctor Moreau", author: "H. G. Wells", year: 1896,
+    cover: { src: "assets/covers/doctor-moreau.jpg", tone: "#545b59" },
+    chapter: "Chapter I · In the Dingey of the Lady Vain",
+    quote: "The study of nature makes a man at last as remorseless as nature.",
+    text: ["I do not propose to add anything to what has already been written concerning the loss of the Lady Vain. As everyone knows, she collided with a derelict when ten days out from Callao. The longboat, with seven of the crew, was picked up eighteen days after by H.M. gunboat Myrtle, and the story of their terrible privations has become quite as well known as the far more horrible Medusa case. But I have to add to the published story of the Lady Vain another, possibly as horrible and far stranger. It has hitherto been supposed that the four men who were in the dingey perished, but this is incorrect. I have the best of evidence for this assertion: I was one of the four men."],
+    reading: { state: "finished", progress: 1 },
+  },
+  {
+    id: "first-men-in-the-moon", genre: "scifi", title: "The First Men in the Moon", author: "H. G. Wells", year: 1901,
+    cover: { src: "assets/covers/first-men-in-the-moon.jpg", tone: "#272e32" },
+    chapter: "Chapter I · Mr. Bedford Meets Mr. Cavor at Lympne",
+    quote: "So utterly at variance is Destiny with all the little plans of men.",
+    text: ["As I sit down to write here amidst the shadows of vine-leaves under the blue sky of southern Italy, it comes to me with a certain quality of astonishment that my participation in these amazing adventures of Mr. Cavor was, after all, the outcome of the purest accident. It might have been anyone. I fell into these things at a time when I thought myself removed from the slightest possibility of disturbing experiences. I had gone to Lympne because I had imagined it the most uneventful place in the world. “Here, at any rate,” said I, “I shall find peace and a chance to work!”", "And this book is the sequel. So utterly at variance is Destiny with all the little plans of men."],
+    reading: { state: "reading", progress: 0.3 },
+  },
+  {
+    id: "food-of-the-gods", genre: "scifi", title: "The Food of the Gods", author: "H. G. Wells", year: 1904,
+    cover: { src: "assets/covers/food-of-the-gods.jpg", tone: "#42372c" },
+    chapter: "Book I · The Dawn of the Food",
+    quote: "Tomorrow, whether we live or die, growth will conquer through us.",
+    text: ["In the middle years of the nineteenth century there first became abundant in this strange world of ours a class of men, men tending for the most part to become elderly, who are called, and who are very properly called, but who dislike extremely to be called—“scientists.” They dislike that word so much that from the columns of Nature, which was from the first their distinctive and characteristic paper, it is as carefully excluded as if it were—that other word which is the basis of all really bad language in this country. But the Great Public and its Press know better, and “scientists” they are, and when they emerge to any sort of publicity, “distinguished scientists” and “eminent scientists” and “well-known scientists” is the very least we call them."],
+    reading: { state: "reading", progress: 0.08 },
+  },
+  {
+    id: "world-set-free", genre: "scifi", title: "The World Set Free", author: "H. G. Wells", year: 1914,
+    cover: { src: "assets/covers/world-set-free.jpg", tone: "#413730" },
+    chapter: "Prelude · The Sun Snarers",
+    quote: "Man is the tool-using, fire-making animal.",
+    text: ["The history of mankind is the history of the attainment of external power. Man is the tool-using, fire-making animal. From the outset of his terrestrial career we find him supplementing the natural strength and bodily weapons of a beast by the heat of burning and the rough implement of stone. So he passed beyond the ape. From that he expands. Presently he added to himself the power of the horse and the ox, he borrowed the carrying strength of water and the driving force of the wind, he quickened his fire by blowing, and his simple tools, pointed first with copper and then with iron, increased and varied and became more elaborate and efficient. He sheltered his heat in houses and made his way easier by paths and roads. He complicated his social relationships and increased his efficiency by the division of labour. He began to store up knowledge. Contrivance followed contrivance, each making it possible for a man to do more. Always down the lengthening record, save for a setback ever and again, he is doing more. …"],
+    reading: { state: "finished", progress: 1 },
+  },
+  {
+    id: "journey-to-the-center", genre: "scifi", title: "Journey to the Center of the Earth", author: "Jules Verne", year: 1864,
+    cover: { src: "assets/covers/journey-to-the-center.jpg", tone: "#524237" },
+    chapter: "Chapter I · The Professor and His Family",
+    quote: "Descend, bold traveller, into the crater of the Jökull of Snæfells … and you will attain the centre of the earth.",
+    text: ["On the 24th of May, 1863, my uncle, Professor Liedenbrock, rushed into his little house, No. 19 Königstrasse, one of the oldest streets in the oldest portion of the city of Hamburg.", "Martha must have concluded that she was very much behindhand, for the dinner had only just been put into the oven."],
+    reading: { state: "reading", progress: 0.5 },
+  },
+  {
+    id: "lost-world", genre: "scifi", title: "The Lost World", author: "Arthur Conan Doyle", year: 1912,
+    cover: { src: "assets/covers/lost-world.jpg", tone: "#3e4c4e" },
+    chapter: "Chapter I · There Are Heroisms All Round Us",
+    quote: "There are heroisms all round us waiting to be done.",
+    text: ["Mr. Hungerton, her father, really was the most tactless person upon earth—a fluffy, feathery, untidy cockatoo of a man, perfectly good-natured, but absolutely centered upon his own silly self. If anything could have driven me from Gladys, it would have been the thought of such a father-in-law. I am convinced that he really believed in his heart that I came round to the Chestnuts three days a week for the pleasure of his company, and very especially to hear his views upon bimetallism, a subject upon which he was by way of being an authority."],
+    reading: { state: "finished", progress: 1 },
+  },
+
   /* ── Fantasy ────────────────────────────────────── */
   {
     id: "alice", genre: "fantasy", title: "Alice’s Adventures in Wonderland", author: "Lewis Carroll", year: 1865,
