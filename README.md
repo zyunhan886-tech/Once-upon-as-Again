@@ -64,4 +64,3 @@ State lives on `<html>`: `data-scene` picks the visible scene; `data-intro` hold
 
 **Adding a book:** only books with a real cover are listed. Put a 2:3 JPEG at `assets/covers/<book-id>.jpg` (≈480×720; originals live in `cover/`), then append the book to `src/data/books.js` with a `genre` id and `cover: { src, tone }` — `tone` is the image's average colour, darkened, used for the 3D book sides. Its spine (a slice of the cover art), note and reader page follow automatically.
 **Adding a genre:** add it to `src/data/genres.js` and add an icon in `src/components/note.js`.
-# UX-MendReading
